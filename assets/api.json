@@ -1,0 +1,10 @@
+[
+    {"type":"header","version":"4.7.7","comment":"Export to JSON plugin for PHPMyAdmin"},
+    {"type":"database","name":"membre"},
+    {"type":"table","name":"membre","database":"membre","data":
+    [
+    {"id":"1","pseudo":"Tristan","mail":"email@gmail.com","mot de passe":"pipicaca"}
+    ]
+    }
+    ]
+    

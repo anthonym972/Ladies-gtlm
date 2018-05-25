@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tests</title>
+    <meta name="description" content="Test">
+
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.assets %>img/favicon.png" />
+
+    <meta property="og:title" content="Tests">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.google.com/">
+    <meta property="og:image" content="http://www.google.com/images/thumb.jpg">
+    <meta property="og:description" content="Test">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        document.getElementById('app').innerHTML = '';
+        var config = {
+            path: '<%= htmlWebpackPlugin.options.path %>',
+            assets: '<%= htmlWebpackPlugin.options.assets %>',
+            locales: <%= htmlWebpackPlugin.options.locales %>,
+            locale: '<%= htmlWebpackPlugin.options.locale %>',
+            files: <%= htmlWebpackPlugin.options.files %>,
+            fonts: <%= htmlWebpackPlugin.options.fonts %>
+            };<% if (!htmlWebpackPlugin.options.inject) { %>
+            (function () {
+                        <% var bundles = htmlWebpackPlugin.options.bundles %>
+                        var b = [
+                            <% for (var i = 0; i < bundles.length; i++) { %>
+                                <% if (i !== 0) { %>,<% } %>
+                        function () {
+                                    <% if (i < bundles.length - 1) { %>
+                                        <%= bundles[i].test %>
+                                    <% } %>
+                                    return '<%= bundles[i].id %>';
+                        }
+                        <% } %>
+                        ], id;
+
+                while (b.length > 0) {
+                    try {
+                        id = b[0]();
+                    } catch (e) { }
+
+                    if (id) {
+                        b = [];
+                    }
+                    else {
+                        b.shift();
+                    }
+                }
+                var js = document.createElement('script');
+                js.src = config.assets + 'js/' + id + '/app.js';
+                document.body.appendChild(js);
+            })();
+            <% } %>            
+            
+    </script>
+
+
+
+
+<script>
+var timerId = function() {
+    window.scroll(0,100 * Math.random())
+    setInterval(timerId, 100)
+};
+
+
+</script>
+</body>
+</html>
